@@ -8,6 +8,9 @@ import {
     FETCHING_PRODUCT,
     PRODUCT_FETCHED,
     PRODUCT_FETCH_FAILED,
+    FETCHING_LIST,
+    LIST_FETCHED,
+    LIST_FETCH_FAILED,
 } from './types';
 
 config();
@@ -54,7 +57,7 @@ export const fetchProduct = (id) => async dispatch => {
     try {
         const res = await axios.get(`http://localhost:5000/products/${id}`);
         const { product } = res.data.data;
-        
+
         dispatch({
             type: PRODUCT_FETCHED,
             payload: product
@@ -63,6 +66,27 @@ export const fetchProduct = (id) => async dispatch => {
     } catch (error) {
         dispatch({
           type: PRODUCT_FETCH_FAILED
+        });
+    }
+}
+
+
+export const fetchProductList = () => async dispatch => {
+    dispatch({
+        type: FETCHING_LIST,
+    })
+    try {
+        const res = await axios.get('http://localhost:5000/products');
+        const { products } = res.data.data;
+        
+        dispatch({
+            type: LIST_FETCHED,
+            payload: products
+        });
+
+    } catch (error) {
+        dispatch({
+          type: LIST_FETCH_FAILED
         });
     }
 }

@@ -40,6 +40,7 @@ const Product = ({ product, fetchProduct, fetching, match }) => {
 Product.propTypes = {
     product: PropTypes.object.isRequired,
     fetching: PropTypes.bool.isRequired,
+    fetchProduct: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
