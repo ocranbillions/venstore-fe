@@ -1,8 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import './product.scss'
 
 
-export default function Product() {
+const Product = () => {
     return (
         <div className="inner-container">
             <h1>Single Product Page</h1>
@@ -21,3 +23,14 @@ export default function Product() {
         </div>
     )
 }
+
+
+Product.propTypes = {
+    product: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = state => ({
+    product: state.productReducer.product,
+});
+
+export default connect(mapStateToProps, null)(Product);

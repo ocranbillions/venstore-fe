@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux';
 import { setAlert } from '../../redux/actions/alert.action';
+import { submitProduct } from '../../redux/actions/product.action';
 import PropTypes from 'prop-types';
 import Alert from '../alert/Alert';
 import './form.scss'
 
 
-const Form = ({ setAlert }) => {
+const Form = ({ setAlert, submitProduct, submitting, history }) => {
     const [productDetails, setProductDetails] = useState({
         name: '',
         description: '',
@@ -19,17 +20,19 @@ const Form = ({ setAlert }) => {
     const { name, description, price, category, image, color } = productDetails;
 
     const onChange = event => {
-        console.log(event.target.name, event.target.value)
+        // console.log(event.target.name, event.target.value)
         setProductDetails({...productDetails, [event.target.name]: event.target.value });
+    }
+
+    const onImageUpload = event => {
+        const img = document.getElementById('image_input')
+        const image_path = img.value.replace("C:\\fakepath\\", "");
+        console.log(image_path)
     }
 
     const onSubmit = event => {
         event.preventDefault();
-        // setAlert('wrong inputs', 'danger');
-        // register(productDetails);
-
-        setAlert('wrong inputs', 'danger');
-        console.log(productDetails)
+        submitProduct(productDetails, history)
     }
 
     return (
@@ -38,7 +41,7 @@ const Form = ({ setAlert }) => {
             <form encType="multipart/form-data" onSubmit={e => onSubmit(e)}>
                 <div className="product-image">
                     <img src="https://via.placeholder.com/150" alt="product"/>
-                    <input type='file' name='image' value={image} onChange={e => onChange(e)}/>
+                    <input id="image_input" type='file' name='image' value={image} onChange={e => onChange(e)}/>
                 </div>
                 <div className="product-details">
                     <input className="mb-5" type="text" placeholder="Name" name="name" value={name} onChange={e => onChange(e)}/>
@@ -62,7 +65,7 @@ const Form = ({ setAlert }) => {
                         <option value="yellow">Yellow</option>
                         <option value="pink">Pink</option>
                     </select>
-                    <input type="submit" value="Submit"/>
+                    <input type="submit" value={ submitting ? "Sending..." : "Submit" }/>
                     <Alert />
                 </div>
             </form>
@@ -72,12 +75,12 @@ const Form = ({ setAlert }) => {
 
 Form.propTypes = {
     setAlert: PropTypes.func.isRequired,
-    // submitProduct: PropTypes.func.isRequired,
-    loading: PropTypes.string.isRequired,
+    submitProduct: PropTypes.func.isRequired,
+    submitting: PropTypes.bool.isRequired,
 };
   
 const mapStateToProps = state => ({
-    loading: state.submitProductReducer.loading,
+    submitting: state.productReducer.submitting,
 });
 
-export default connect(mapStateToProps, { setAlert })(Form);
+export default connect(mapStateToProps, { setAlert, submitProduct })(Form);
