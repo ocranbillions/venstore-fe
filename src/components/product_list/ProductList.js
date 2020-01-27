@@ -15,7 +15,7 @@ const ProductList = ({ products, fetchProductList, fetching }) => {
 
     return products ? (
         <div className="inner-container">
-            <h1>Product Listing Page</h1>
+            <h2 className="heading">Product Listing Page</h2>
             <div className="list mt-10">
                 {
                     products.map(item => (
@@ -37,7 +37,7 @@ const ProductList = ({ products, fetchProductList, fetching }) => {
         </div>
     ) : (
         <div className="inner-container">
-            { !products && fetching ? <h1>Loading...</h1> : <h1>No products were found</h1>}
+            { !products && fetching ? <h2 className="heading">Loading...</h2> : <h2 className="heading">No products were found</h2>}
         </div>
     )
 }

@@ -8,11 +8,24 @@
     padding: 20px;
 }
 
-.inner-container{
+.inner-container {
     width: 80%;
     padding: 20px;
     margin: 0 auto;
 }
+
+@media only screen and (max-width: 900px) {
+    .inner-container {
+        width: 95%;
+        padding: 20px 5px;
+    }
+} 
+
+@media only screen and (max-width: 700px) {
+    .heading {
+        text-align: center;
+    }
+} 
 
 .wrapper {
     width: 90%;
@@ -22,9 +35,7 @@
     justify-content: flex-end;
     padding: 0 20px;
 }
-/* @media only screen and (max-width: 767px) {
 
-} */
 
 .mb-5 {
   margin-bottom: 5px;
@@ -54,3 +65,4 @@
 .alert-danger {
     color: red;
 }
+

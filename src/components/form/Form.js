@@ -35,11 +35,11 @@ const Form = ({ setAlert, submitProduct, submitting, history }) => {
 
     return (
         <div className="inner-container">
-            <h2>Digital Product</h2>
+            <h2 className="heading">Digital Product</h2>
             <form encType="multipart/form-data" onSubmit={e => onSubmit(e)}>
                 <div className="product-image">
                     <img src="https://via.placeholder.com/150" alt="product"/>
-                    <input id="image_input" type='file' name='image' value={image} onChange={e => onChange(e)}/>
+                    <input id="image_input" className="mb-10" type='file' name='image' value={image} onChange={e => onChange(e)}/>
                 </div>
                 <div className="product-details">
                     <input className="mb-5" type="text" placeholder="Name" name="name" value={name} onChange={e => onChange(e)}/>
