@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { fetchProductList } from '../../redux/actions/product.action';
 import './productList.scss'
 
@@ -18,11 +19,13 @@ const ProductList = ({ products, fetchProductList, fetching }) => {
             <div className="list mt-10">
                 {
                     products.map(item => (
-                        <div className="product-card mb-10">
-                            <p>ID: {item.id}</p>
-                            <p>Name: {item.name}</p>
-                            <p>Price: ${item.price}</p>
-                        </div>
+                        <Link to={`/products/${item.id}`} className="product-card mb-10">
+                            <div className="">
+                                <p>ID: {item.id}</p>
+                                <p>Name: {item.name}</p>
+                                <p>Price: ${item.price}</p>
+                            </div>
+                        </Link>
                     ))
                 }
             </div>

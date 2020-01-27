@@ -4,12 +4,15 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Form from './components/form/Form';
 import Product from './components/single_product/Product';
 import ProductList from './components/product_list/ProductList';
+import Nav from './components/layout/navigation/Nav'
 import store from './redux/store';
+import './app.scss';
 
 
 const App = () => (
     <Provider store={store}>
         <Router>
+            <Nav/>
             <section className="container">
                 <Switch>
                     <Route exact path='/' component={Form} />
