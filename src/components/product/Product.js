@@ -17,7 +17,7 @@ const Product = ({ product, fetchProduct, fetching, match }) => {
             <h1>Product Page</h1>
             <div className="product-container mt-10">
                 <div className="image-container">
-                    <img src="https://via.placeholder.com/250/FF0000/FFFFFF?Text=Down.com" alt="product"/>
+                    <img src={product.image} alt="product"/>
                 </div>
                 <div className="product-info">
                     <h4>Product Name: {product.name}</h4>
@@ -31,7 +31,7 @@ const Product = ({ product, fetchProduct, fetching, match }) => {
         </div>
     ) : (
         <div className="inner-container">
-            { !product && fetching ? <h1>Spinner</h1> : <h1>The product with the given ID was not found</h1>}
+            { !product && fetching ? <h1>Loading...</h1> : <h1>The product with the given ID was not found</h1>}
         </div>
     )
 }

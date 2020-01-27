@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { setAlert } from '../../redux/actions/alert.action';
 import { submitProduct } from '../../redux/actions/product.action';
 import PropTypes from 'prop-types';
-import Alert from '../alert/Alert';
+import Alert from '../layout/alert/Alert';
 import './form.scss'
 
 
@@ -20,13 +20,11 @@ const Form = ({ setAlert, submitProduct, submitting, history }) => {
     const { name, description, price, category, image, color } = productDetails;
 
     const onChange = event => {
-        // console.log(event.target.name, event.target.value)
         setProductDetails({...productDetails, [event.target.name]: event.target.value });
     }
 
     const onImageUpload = event => {
-        const img = document.getElementById('image_input')
-        const image_path = img.value.replace("C:\\fakepath\\", "");
+        const image_path = event.target.files[0]
         console.log(image_path)
     }
 
@@ -50,6 +48,7 @@ const Form = ({ setAlert, submitProduct, submitting, history }) => {
                     </textarea>
                     <input className="mb-5" type="number" placeholder="Price" name="price" value={price} onChange={e => onChange(e)}/>
                     <select name="category" className="mb-5" value={category} onChange={e => onChange(e)}>
+                        <option value="">Select Category</option>
                         <option value="men-shirts">Men's Shirt</option>
                         <option value="women-shirt">Women's Shirts</option>
                         <option value="men-shoes">Men's Shoes</option>
@@ -58,6 +57,7 @@ const Form = ({ setAlert, submitProduct, submitting, history }) => {
                         <option value="necklace">Necklace</option>
                     </select>
                     <select name="color" className="mb-5" value={color} onChange={e => onChange(e)}>
+                        <option value="">Select Color</option>
                         <option value="red">Red</option>
                         <option value="blue" defaultValue>Blue</option>
                         <option value="green">Green</option>

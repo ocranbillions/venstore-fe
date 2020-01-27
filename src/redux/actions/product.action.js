@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { setAlert } from './alert.action.js';
-import { config } from 'dotenv';
 import {
     SUBMIT_SUCCESS,
     SUBMIT_FAIL,
@@ -13,8 +12,7 @@ import {
     LIST_FETCH_FAILED,
 } from './types';
 
-config();
-
+const BASE_URL = 'https://venstore-api.herokuapp.com';
 
 // Add Product
 export const submitProduct = (productDetails, history) => async dispatch => {
@@ -27,16 +25,15 @@ export const submitProduct = (productDetails, history) => async dispatch => {
     dispatch({ type: SUBMITTING });
     
     try {
-        // console.log(process.env.API_BASE_URL)
-        // const res = await axios.post(`${process.env.API_BASE_URL}/products`, body, config);
-
-        const res = await axios.post('http://localhost:5000/products', body, config);
+        const res = await axios.post(`${BASE_URL}/products`, body, config);
         const { product } = res.data.data;
 
         dispatch({
             type: SUBMIT_SUCCESS,
             payload: product
         });
+
+        console.log(product);
 
         history.push(`/products/${product.id}`);
 
@@ -49,13 +46,13 @@ export const submitProduct = (productDetails, history) => async dispatch => {
     }
 };
 
-
+// Fetch Single Product
 export const fetchProduct = (id) => async dispatch => {
     dispatch({
         type: FETCHING_PRODUCT,
     })
     try {
-        const res = await axios.get(`http://localhost:5000/products/${id}`);
+        const res = await axios.get(`${BASE_URL}/products/${id}`);
         const { product } = res.data.data;
 
         dispatch({
@@ -70,13 +67,13 @@ export const fetchProduct = (id) => async dispatch => {
     }
 }
 
-
+// Fetch All Products
 export const fetchProductList = () => async dispatch => {
     dispatch({
         type: FETCHING_LIST,
     })
     try {
-        const res = await axios.get('http://localhost:5000/products');
+        const res = await axios.get(`${BASE_URL}/products`);
         const { products } = res.data.data;
         
         dispatch({

@@ -20,10 +20,15 @@ const ProductList = ({ products, fetchProductList, fetching }) => {
                 {
                     products.map(item => (
                         <Link to={`/products/${item.id}`} className="product-card mb-10">
-                            <div className="">
-                                <p>ID: {item.id}</p>
-                                <p>Name: {item.name}</p>
-                                <p>Price: ${item.price}</p>
+                            <div className="pc__flex-container">
+                                <div className="basic-info">
+                                    <p>ID: {item.id}</p>
+                                    <p>Name: {item.name}</p>
+                                    <p>Price: ${item.price}</p>
+                                </div>
+                                <div className="image">
+                                    <img src={item.image} alt={item.name}/>
+                                </div>
                             </div>
                         </Link>
                     ))
@@ -32,7 +37,7 @@ const ProductList = ({ products, fetchProductList, fetching }) => {
         </div>
     ) : (
         <div className="inner-container">
-            { !products && fetching ? <h1>Spinner</h1> : <h1>No products were found</h1>}
+            { !products && fetching ? <h1>Loading...</h1> : <h1>No products were found</h1>}
         </div>
     )
 }
