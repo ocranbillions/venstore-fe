@@ -1,21 +1,53 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { fetchProductList } from '../../redux/actions/product.action';
+import { fetchProductList, fetchProductsByCategory } from '../../redux/actions/product.action';
 import './productList.scss'
 
 
 
-const ProductList = ({ products, fetchProductList, fetching }) => {
-    
+const ProductList = ({ products, fetchProductList, fetchProductsByCategory, fetching }) => {
+
     useEffect(() => {
         fetchProductList()
     }, [fetchProductList]);
 
+    const [categoryState, setCategoryState] = useState({
+        category: 'all',
+    });
+
+    const { category } = categoryState;
+
+    const onChangeHandler = event => {
+        setCategoryState({...categoryState, category: event.target.value });
+    }
+
+    const onSubmit = (event) => {
+        event.preventDefault();
+        if(category === 'all') {
+            fetchProductList()
+        } else {
+            fetchProductsByCategory(category)
+        }
+    }
+
+
     return products ? (
         <div className="inner-container">
-            <h2 className="heading">Product Listing Page</h2>
+            <h2 className="heading">Product Listing</h2>
+            <form className="select-cat-form" onSubmit={onSubmit}>
+                <select name="category" value={category} onChange={onChangeHandler}>
+                    <option value="all">All products</option>
+                    <option value="fashion">Fashion</option>
+                    <option value="computing">Computing</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="home-office">Home &amp; Office</option>
+                    <option value="health-beauty">Health &amp; Beauty</option>
+                    <option value="grocery">Grocery</option>
+                </select>
+                <input type="submit" value="search"/>
+            </form>
             <div className="list mt-10">
                 {
                     products.map(item => (
@@ -46,6 +78,7 @@ ProductList.propTypes = {
     products: PropTypes.array,
     fetching: PropTypes.bool.isRequired,
     fetchProductList: PropTypes.func.isRequired,
+    fetchProductsByCategory: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -53,4 +86,4 @@ const mapStateToProps = state => ({
     fetching: state.productReducer.fetching,
 });
 
-export default connect(mapStateToProps, { fetchProductList })(ProductList);
+export default connect(mapStateToProps, { fetchProductList, fetchProductsByCategory })(ProductList);

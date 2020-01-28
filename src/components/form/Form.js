@@ -48,7 +48,7 @@ const Form = ({ setAlert, submitProduct, submitting, history }) => {
     return (
         <div className="inner-container">
             <h2 className="heading">Add Product</h2>
-            <form encType="multipart/form-data" onSubmit={handleSubmit(onSubmit)}>
+            <form className="product-form" encType="multipart/form-data" onSubmit={handleSubmit(onSubmit)}>
                 <div className="product-image">
                     <img id="output" src={imagePreview} alt="product"/>
                     <input  ref={register({ required: true })} id="image_input" className="mt-10" type='file' name='image' accept="image/jpeg, image/png" onChange={selectImageHandler}/>

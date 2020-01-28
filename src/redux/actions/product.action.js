@@ -89,3 +89,25 @@ export const fetchProductList = () => async dispatch => {
         });
     }
 }
+
+// Fetch Products by category
+export const fetchProductsByCategory = (category) => async dispatch => {
+    
+    dispatch({
+        type: FETCHING_LIST,
+    })
+    try {
+        const res = await axios.get(`${BASE_URL}/products/categories/${category}`);
+        const { products } = res.data.data;
+        
+        dispatch({
+            type: LIST_FETCHED,
+            payload: products
+        });
+
+    } catch (error) {
+        dispatch({
+          type: LIST_FETCH_FAILED
+        });
+    }
+}
