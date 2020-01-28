@@ -4,7 +4,7 @@ import './nav.scss'
 
 export default function Nav() {
     return (
-        <div className="wrapper">
+        <div className="wrapper container">
             <div className="inner-container flex-container">
                 <div className="link-container">
                     <Link to="/" className="nav-links">Add product</Link>

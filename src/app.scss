@@ -1,16 +1,19 @@
 .container {
-    width: 90%;
     max-width: 120rem;
     display: flex;
     margin: 0 auto;
     justify-content: space-between;
-    padding: 20px;
 }
 
 .inner-container {
     width: 80%;
     padding: 20px;
     margin: 0 auto;
+    padding-bottom: 0px;
+}
+
+.heading {
+    color: rgb(81, 99, 145);
 }
 
 @media only screen and (max-width: 900px) {
@@ -30,12 +33,10 @@
 } 
 
 .wrapper {
-    width: 90%;
     max-width: 120rem;
     display: flex;
     margin: 0 auto;
     justify-content: flex-end;
-    padding: 0 20px;
 }
 
 

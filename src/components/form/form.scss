@@ -68,6 +68,34 @@ form {
     color: brown;
 }
 
+// Background
+.bg_red {
+    background-color: red;
+}
+.bg_blue {
+    background-color: blue;
+}
+
+.bg_green {
+    background-color: green;
+}
+
+.bg_black {
+    background-color: black;
+}
+
+.bg_yellow {
+    background-color: yellow;
+}
+
+.bg_pink {
+    background-color: pink;
+}
+
+.bg_brown {
+    background-color: brown;
+}
+
 @media only screen and (max-width: 700px) {
     form {
         display: flex;

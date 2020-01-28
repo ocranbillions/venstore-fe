@@ -14,18 +14,34 @@ const Product = ({ product, fetchProduct, fetching, match }) => {
     return product ? 
     (
         <div className="inner-container">
-            <h2 className="heading">Product Page</h2>
+            <h2 className="heading">{product.name}</h2>
             <div className="product-container mt-10">
                 <div className="image-container">
                     <img src={product.image} alt="product"/>
                 </div>
                 <div className="product-info">
-                    <h4>Product Name: {product.name}</h4>
-                    <p>ID: NO{product.id}</p>
-                    <p>Description: {product.description}</p>
-                    <p>Category: {product.category}</p>
-                    <p>Color: {product.color}</p>
-                    <p>Price: ${product.price}</p>
+                    <div className="field mb-10">
+                        <p>SKU: NO{product.id}</p>
+                    </div>
+
+                    <div className="field mb-5">
+                        <h4>Description</h4>
+                        <p>{product.description}</p>
+                    </div>
+
+                    <div className="field mb-5 mt-10">
+                        <h4>Category</h4>
+                        <p>{product.category}</p>
+                    </div>
+
+                    <div className="field mb-5 mt-10">
+                        <p><strong>Color:</strong> <span className={`bg_${product.color} color-box`}></span></p>
+                    </div>
+    
+                    <div className="field">
+                        <p><strong>Price:</strong> ${product.price}</p>
+                    </div>
+                    
                 </div>
             </div>
         </div>
