@@ -13,6 +13,7 @@ import {
 } from './types';
 
 const BASE_URL = 'https://venstore-api.herokuapp.com';
+// const BASE_URL = 'http://localhost:5000';
 
 // Add Product
 export const submitProduct = (productDetails, history) => async dispatch => {

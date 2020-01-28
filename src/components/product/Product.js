@@ -14,10 +14,10 @@ const Product = ({ product, fetchProduct, fetching, match }) => {
     return product ? 
     (
         <div className="inner-container">
-            <h2 className="heading">{product.name}</h2>
+            <h2 className="heading">{fetching ? 'Fetching product...' : product.name}</h2>
             <div className="product-container mt-10">
                 <div className="image-container">
-                    <img src={product.image} alt="product"/>
+                    <img src={product.image ? product.image : 'https://via.placeholder.com/150'} alt="product"/>
                 </div>
                 <div className="product-info">
                     <div className="field mb-10">
@@ -54,7 +54,7 @@ const Product = ({ product, fetchProduct, fetching, match }) => {
 
 
 Product.propTypes = {
-    product: PropTypes.object,
+    product: PropTypes.object.isRequired,
     fetching: PropTypes.bool.isRequired,
     fetchProduct: PropTypes.func.isRequired,
 };

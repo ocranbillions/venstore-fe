@@ -13,8 +13,8 @@ import {
 const initialState = {
     submitting: false,
     fetching: false,
-    product: null,
-    products: null,
+    product: {},
+    products: [],
 };
   
 export default function(state = initialState, action) {
@@ -36,12 +36,13 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 submitting: false,
-                product: null,
+                product: {},
             };
         case FETCHING_PRODUCT:
             return {
                 ...state,
                 fetching: true,
+                product: {},
             }
         case PRODUCT_FETCHED:
             return {
@@ -53,12 +54,13 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 fetching: false,
-                product: null,
+                product: {},
             };
         case FETCHING_LIST:
             return {
                 ...state,
                 fetching: true,
+                products: [],
             }
         case LIST_FETCHED:
             return {
@@ -70,7 +72,7 @@ export default function(state = initialState, action) {
             return {
                 ...state,
                 fetching: false,
-                products: null,
+                products: [],
             };
         default:
             return state;

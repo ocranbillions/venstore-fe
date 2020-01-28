@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { fetchProductList, fetchProductsByCategory } from '../../redux/actions/product.action';
+import Pagination from '../layout/pagination/Pagination';
 import './productList.scss'
 
 
@@ -23,8 +24,23 @@ const ProductList = ({ products, fetchProductList, fetchProductsByCategory, fetc
         setCategoryState({...categoryState, category: event.target.value });
     }
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [productsPerPage] = useState(5);
+
+    // Get current posts
+    const indexOfLastProduct = currentPage * productsPerPage;
+    const indesOfFirstProduct = indexOfLastProduct - productsPerPage;
+    const currentProducts = products.slice(indesOfFirstProduct, indexOfLastProduct);
+
+    // Change page
+    const paginate = pageNumber => setCurrentPage(pageNumber);
+
+
     const onSubmit = (event) => {
         event.preventDefault();
+
+        setCurrentPage(1)
+
         if(category === 'all') {
             fetchProductList()
         } else {
@@ -32,10 +48,9 @@ const ProductList = ({ products, fetchProductList, fetchProductsByCategory, fetc
         }
     }
 
-
     return products ? (
         <div className="inner-container">
-            <h2 className="heading">Product Listing</h2>
+            <h2 className="heading">{fetching ? 'Fetching products...' : 'Product Listing'}</h2>
             <form className="select-cat-form" onSubmit={onSubmit}>
                 <select name="category" value={category} onChange={onChangeHandler}>
                     <option value="all">All products</option>
@@ -46,11 +61,11 @@ const ProductList = ({ products, fetchProductList, fetchProductsByCategory, fetc
                     <option value="health-beauty">Health &amp; Beauty</option>
                     <option value="grocery">Grocery</option>
                 </select>
-                <input type="submit" value="search"/>
+                <input type="submit" value="  Filter  "/>
             </form>
             <div className="list mt-10">
                 {
-                    products.map(item => (
+                    currentProducts.map(item => (
                         <Link to={`/products/${item.id}`} className="product-card mb-10" key={item.id}>
                             <div className="pc__flex-container">
                                 <div className="basic-info">
@@ -65,6 +80,13 @@ const ProductList = ({ products, fetchProductList, fetchProductsByCategory, fetc
                         </Link>
                     ))
                 }
+
+                {/* Show page numbers */}
+                <Pagination
+                    productsPerPage={productsPerPage}
+                    totalProducts={products.length}
+                    paginate={paginate} 
+                />
             </div>
         </div>
     ) : (
@@ -75,7 +97,7 @@ const ProductList = ({ products, fetchProductList, fetchProductsByCategory, fetc
 }
 
 ProductList.propTypes = {
-    products: PropTypes.array,
+    products: PropTypes.array.isRequired,
     fetching: PropTypes.bool.isRequired,
     fetchProductList: PropTypes.func.isRequired,
     fetchProductsByCategory: PropTypes.func.isRequired,
