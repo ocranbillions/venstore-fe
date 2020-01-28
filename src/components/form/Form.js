@@ -47,60 +47,71 @@ const Form = ({ setAlert, submitProduct, submitting, history }) => {
 
     return (
         <div className="inner-container">
-            <h2 className="heading">Add Product</h2>
             <form className="product-form" encType="multipart/form-data" onSubmit={handleSubmit(onSubmit)}>
-                <div className="product-image">
-                    <img id="output" src={imagePreview} alt="product"/>
-                    <input  ref={register({ required: true })} id="image_input" className="mt-10" type='file' name='image' accept="image/jpeg, image/png" onChange={selectImageHandler}/>
-                    <p className="error-paragraphs"><span>.</span>{errors.image && 'This is required'}</p>
-                </div>
-                <div className="product-details">
-                    <label htmlFor="name">Name: </label>
-                    <input ref={register({ required: true, minLength: 2 })} className="" type="text" placeholder="" name="name" value={name} onChange={onChangeHandler}/>
-                    <p className="error-paragraphs"><span>.</span>{errors.name && 'This is required'}</p>
+                <h2 className="heading">Add Product</h2>
+                <div className="center-div mt-10">
+                    <div className="product-image mt-10">
+                        <img id="output" src={imagePreview} alt="product"/>
+                        <input  ref={register({ required: true })}
+                            id="image_input" className="mt-5"
+                            type='file'
+                            name='image'
+                            accept="image/jpeg, image/png"
+                            onChange={selectImageHandler}
+                            style={{display: "none"}}
+                        />
+                        <p className="custom-upload-btn"><label htmlFor="image_input" style={{cursor: "pointer"}}>upload</label>
+                            <p className="error-paragraphs"><span>.</span>{errors.image && 'This is required'}</p>
+                        </p>
+                    </div>
+                    <div className="product-details">
+                        <label htmlFor="name">Name: </label>
+                        <input ref={register({ required: true, minLength: 2 })} className="pl-5" type="text" placeholder="" name="name" value={name} onChange={onChangeHandler}/>
+                        <p className="error-paragraphs"><span>.</span>{errors.name && 'This is required'}</p>
 
-                    <label htmlFor="description">Description: </label>
-                    <textarea ref={register({ required: true, minLength: 6 })} className="" name="description" rows="10" cols="20" value={description} onChange={onChangeHandler}>
-                        Product description...
-                    </textarea>
-                    <p className="error-paragraphs"><span>.</span>
-                        {errors.description && errors.description.type === 'required' && 'This is required'}
-                        {errors.description && errors.description.type === 'minLength' && 'Six characters required.'}
-                    </p>
+                        <label htmlFor="description">Description: </label>
+                        <textarea ref={register({ required: true, minLength: 6 })} className="pl-5 pt-5" name="description" rows="5" cols="" value={description} onChange={onChangeHandler}>
+                            Product description...
+                        </textarea>
+                        <p className="error-paragraphs"><span>.</span>
+                            {errors.description && errors.description.type === 'required' && 'This is required'}
+                            {errors.description && errors.description.type === 'minLength' && 'Six characters required.'}
+                        </p>
 
-                    <label htmlFor="price">Price: </label>
-                    <input ref={register({ required: true })} className="" type="number" placeholder="" name="price" value={price} onChange={onChangeHandler}/>
-                    <p className="error-paragraphs"><span>.</span>{errors.price && 'This is required'}</p>
-
-
-                    <label htmlFor="category">Category: </label>
-                    <select ref={register({ required: true })} name="category" className="" value={category} onChange={onChangeHandler}>
-                        <option value="">select...</option>
-                        <option value="fashion">Fashion</option>
-                        <option value="computing">Computing</option>
-                        <option value="electronics">Electronics</option>
-                        <option value="home-office">Home &amp; Office</option>
-                        <option value="health-beauty">Health &amp; Beauty</option>
-                        <option value="grocery">Grocery</option>
-                    </select>
-                    <p className="error-paragraphs"><span>.</span>{errors.category && 'This is required'}</p>
+                        <label htmlFor="price">Price: </label>
+                        <input ref={register({ required: true })} className="" type="number" className="pl-5" name="price" value={price} onChange={onChangeHandler}/>
+                        <p className="error-paragraphs"><span>.</span>{errors.price && 'This is required'}</p>
 
 
-                    <label htmlFor="color">Color: </label>
-                    <select ref={register({ required: true })} name="color" className="" value={color} onChange={onChangeHandler}>
-                        <option value="">select...</option>
-                        <option value="red" className="red">Red</option>
-                        <option value="blue" className="blue">Blue</option>
-                        <option value="green" className="green">Green</option>
-                        <option value="black" className="black">Black</option>
-                        <option value="yellow" className="yellow">Yellow</option>
-                        <option value="pink" className="pink">Pink</option>
-                        <option value="brown" className="brown">Brown</option>
-                    </select>
-                    <p className="error-paragraphs"><span>.</span>{errors.color && 'This is required'}</p>
+                        <label htmlFor="category">Category: </label>
+                        <select ref={register({ required: true })} name="category" value={category} onChange={onChangeHandler}>
+                            <option value="">select...</option>
+                            <option value="fashion">Fashion</option>
+                            <option value="computing">Computing</option>
+                            <option value="electronics">Electronics</option>
+                            <option value="home-office">Home &amp; Office</option>
+                            <option value="health-beauty">Health &amp; Beauty</option>
+                            <option value="grocery">Grocery</option>
+                        </select>
+                        <p className="error-paragraphs"><span>.</span>{errors.category && 'This is required'}</p>
 
-                    <input className="btn mt-5" type="submit" value={ submitting ? "Sending..." : "Submit" }/>
-                    <Alert/>
+
+                        <label htmlFor="color">Color: </label>
+                        <select ref={register({ required: true })} name="color" value={color} onChange={onChangeHandler}>
+                            <option value="">select...</option>
+                            <option value="red" className="red">Red</option>
+                            <option value="blue" className="blue">Blue</option>
+                            <option value="green" className="green">Green</option>
+                            <option value="black" className="black">Black</option>
+                            <option value="yellow" className="yellow">Yellow</option>
+                            <option value="pink" className="pink">Pink</option>
+                            <option value="brown" className="brown">Brown</option>
+                        </select>
+                        <p className="error-paragraphs"><span>.</span>{errors.color && 'This is required'}</p>
+
+                        <input className="btn mt-5" type="submit" value={ submitting ? "Sending..." : "Submit" }/>
+                        <Alert/>
+                    </div>
                 </div>
             </form>
         </div>
