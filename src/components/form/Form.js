@@ -47,7 +47,7 @@ const Form = ({ setAlert, submitProduct, submitting, history }) => {
 
     return (
         <div className="inner-container">
-            <h2 className="heading">Digital Product</h2>
+            <h2 className="heading">Add Product</h2>
             <form encType="multipart/form-data" onSubmit={handleSubmit(onSubmit)}>
                 <div className="product-image">
                     <img id="output" src={imagePreview} alt="product"/>
@@ -76,12 +76,12 @@ const Form = ({ setAlert, submitProduct, submitting, history }) => {
                     <label htmlFor="category">Category: </label>
                     <select ref={register({ required: true })} name="category" className="" value={category} onChange={onChangeHandler}>
                         <option value="">select...</option>
-                        <option value="men-shirts">Men's Shirt</option>
-                        <option value="women-shirt">Women's Shirts</option>
-                        <option value="men-shoes">Men's Shoes</option>
-                        <option value="women-shoes">Women's Shoes</option>
-                        <option value="hand-bags" defaultValue>Hand Bags</option>
-                        <option value="necklace">Necklace</option>
+                        <option value="fashion">Fashion</option>
+                        <option value="computing">Computing</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="home-office">Home &amp; Office</option>
+                        <option value="health-beauty">Health &amp; Beauty</option>
+                        <option value="grocery">Grocery</option>
                     </select>
                     <p className="error-paragraphs"><span>.</span>{errors.category && 'This is required'}</p>
 
@@ -89,12 +89,13 @@ const Form = ({ setAlert, submitProduct, submitting, history }) => {
                     <label htmlFor="color">Color: </label>
                     <select ref={register({ required: true })} name="color" className="" value={color} onChange={onChangeHandler}>
                         <option value="">select...</option>
-                        <option value="red">Red</option>
-                        <option value="blue" defaultValue>Blue</option>
-                        <option value="green">Green</option>
-                        <option value="black">Black</option>
-                        <option value="yellow">Yellow</option>
-                        <option value="pink">Pink</option>
+                        <option value="red" className="red">Red</option>
+                        <option value="blue" className="blue">Blue</option>
+                        <option value="green" className="green">Green</option>
+                        <option value="black" className="black">Black</option>
+                        <option value="yellow" className="yellow">Yellow</option>
+                        <option value="pink" className="pink">Pink</option>
+                        <option value="brown" className="brown">Brown</option>
                     </select>
                     <p className="error-paragraphs"><span>.</span>{errors.color && 'This is required'}</p>
 
