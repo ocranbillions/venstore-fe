@@ -3,12 +3,13 @@ form {
     margin-top: 20px;
 
     .product-image {
-        width: 200px;
+        width: 15rem;
+        height: 15rem;
         margin-right: 10px;
 
         img {
             width: 100%;
-            height: auto;
+            height: 100%;
         }
     }
 
@@ -29,7 +30,9 @@ form {
         flex-direction: column;
 
         .product-image {
-            margin: 0px auto;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 50px;
         }
     }
 } 

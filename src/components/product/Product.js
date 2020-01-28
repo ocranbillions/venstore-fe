@@ -38,7 +38,7 @@ const Product = ({ product, fetchProduct, fetching, match }) => {
 
 
 Product.propTypes = {
-    product: PropTypes.object.isRequired,
+    product: PropTypes.object,
     fetching: PropTypes.bool.isRequired,
     fetchProduct: PropTypes.func.isRequired,
 };

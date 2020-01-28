@@ -16,24 +16,35 @@ const BASE_URL = 'https://venstore-api.herokuapp.com';
 
 // Add Product
 export const submitProduct = (productDetails, history) => async dispatch => {
+    const { name, description, price, category, color, image } = productDetails;
+    if(name === '' || description === '' || price === '' ||
+        category === '' || color === '' || !image) {
+            dispatch(setAlert('All fields are requried', 'danger'));
+            return;
+        }
+    
     const config = {
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'multipart/form-data' }
     };
 
-    const body = JSON.stringify(productDetails);
+    let fd = new FormData();
+    fd.append('name', productDetails.name);
+    fd.append('description', productDetails.description);
+    fd.append('price', productDetails.price);
+    fd.append('category', productDetails.category);
+    fd.append('color', productDetails.color);
+    fd.append('image', productDetails.image, productDetails.image.name);
 
     dispatch({ type: SUBMITTING });
     
     try {
-        const res = await axios.post(`${BASE_URL}/products`, body, config);
+        const res = await axios.post(`${BASE_URL}/products`, fd, config);
         const { product } = res.data.data;
 
         dispatch({
             type: SUBMIT_SUCCESS,
             payload: product
         });
-
-        console.log(product);
 
         history.push(`/products/${product.id}`);
 

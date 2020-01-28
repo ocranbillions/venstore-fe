@@ -19,7 +19,7 @@ const ProductList = ({ products, fetchProductList, fetching }) => {
             <div className="list mt-10">
                 {
                     products.map(item => (
-                        <Link to={`/products/${item.id}`} className="product-card mb-10">
+                        <Link to={`/products/${item.id}`} className="product-card mb-10" key={item.id}>
                             <div className="pc__flex-container">
                                 <div className="basic-info">
                                     <p>ID: {item.id}</p>
@@ -43,7 +43,7 @@ const ProductList = ({ products, fetchProductList, fetching }) => {
 }
 
 ProductList.propTypes = {
-    products: PropTypes.array.isRequired,
+    products: PropTypes.array,
     fetching: PropTypes.bool.isRequired,
     fetchProductList: PropTypes.func.isRequired,
 };

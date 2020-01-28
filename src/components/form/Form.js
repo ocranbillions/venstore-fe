@@ -13,22 +13,31 @@ const Form = ({ setAlert, submitProduct, submitting, history }) => {
         description: '',
         price: '',
         category: '',
-        image: '',
+        imagePreview: 'https://via.placeholder.com/150',
+        image: null,
         color: ''
     });
     
-    const { name, description, price, category, image, color } = productDetails;
+    const { name, description, price, category, image, imagePreview, color } = productDetails;
 
-    const onChange = event => {
+    const onChangeHandler = event => {
         setProductDetails({...productDetails, [event.target.name]: event.target.value });
     }
 
-    const onImageUpload = event => {
-        const image_path = event.target.files[0]
-        console.log(image_path)
+    const selectImageHandler = event => {
+        const file = event.target.files[0]
+
+        if(event.target.files && file) {
+            let reader = new FileReader();
+            reader.onload = (e) => {   
+              const filePrev = e.target.result
+              setProductDetails({...productDetails, imagePreview: filePrev, image: file });
+            };
+            reader.readAsDataURL(file);
+        }
     }
 
-    const onSubmit = event => {
+    const onSubmitHandler = event => {
         event.preventDefault();
         submitProduct(productDetails, history)
     }
@@ -36,18 +45,18 @@ const Form = ({ setAlert, submitProduct, submitting, history }) => {
     return (
         <div className="inner-container">
             <h2 className="heading">Digital Product</h2>
-            <form encType="multipart/form-data" onSubmit={e => onSubmit(e)}>
+            <form encType="multipart/form-data" onSubmit={onSubmitHandler}>
                 <div className="product-image">
-                    <img src="https://via.placeholder.com/150" alt="product"/>
-                    <input id="image_input" className="mb-10" type='file' name='image' value={image} onChange={e => onChange(e)}/>
+                    <img id="output" src={imagePreview} alt="product"/>
+                    <input id="image_input" className="mt-10" type='file' name='image' accept="image/jpeg, image/png" onChange={selectImageHandler}/>
                 </div>
                 <div className="product-details">
-                    <input className="mb-5" type="text" placeholder="Name" name="name" value={name} onChange={e => onChange(e)}/>
-                    <textarea className="mb-5" name="description" rows="10" cols="20" value={description} onChange={e => onChange(e)}>
+                    <input className="mb-5" type="text" placeholder="Name" name="name" value={name} onChange={onChangeHandler}/>
+                    <textarea className="mb-5" name="description" rows="10" cols="20" value={description} onChange={onChangeHandler}>
                         Product description...
                     </textarea>
-                    <input className="mb-5" type="number" placeholder="Price" name="price" value={price} onChange={e => onChange(e)}/>
-                    <select name="category" className="mb-5" value={category} onChange={e => onChange(e)}>
+                    <input className="mb-5" type="number" placeholder="Price" name="price" value={price} onChange={onChangeHandler}/>
+                    <select name="category" className="mb-5" value={category} onChange={onChangeHandler}>
                         <option value="">Select Category</option>
                         <option value="men-shirts">Men's Shirt</option>
                         <option value="women-shirt">Women's Shirts</option>
@@ -56,7 +65,7 @@ const Form = ({ setAlert, submitProduct, submitting, history }) => {
                         <option value="hand-bags" defaultValue>Hand Bags</option>
                         <option value="necklace">Necklace</option>
                     </select>
-                    <select name="color" className="mb-5" value={color} onChange={e => onChange(e)}>
+                    <select name="color" className="mb-5" value={color} onChange={onChangeHandler}>
                         <option value="">Select Color</option>
                         <option value="red">Red</option>
                         <option value="blue" defaultValue>Blue</option>
