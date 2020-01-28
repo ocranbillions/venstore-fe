@@ -1,11 +1,13 @@
 .product-card {
-    border: 1px solid grey;
     margin-bottom: 15px;
     padding: 1rem;
     border-radius: 10px;
     display: block;
     text-decoration: none;
     color: black;
+    background: rgb(81, 99, 145);
+    color: white;
+
 
     .pc__flex-container {
         display: flex;

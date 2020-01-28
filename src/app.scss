@@ -4,7 +4,6 @@
     display: flex;
     margin: 0 auto;
     justify-content: space-between;
-    background: #F6F6F6;
     padding: 20px;
 }
 
@@ -51,6 +50,18 @@
 
 .mb-10 {
     margin-bottom: 10px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.error-paragraphs {
+    color: orange;
+    font-size: 1rem;
+    span {
+        visibility: hidden;
+    }
 }
 
 /* ====== Alerts ====== */

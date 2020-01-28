@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux';
+import { useForm } from 'react-hook-form';
 import { setAlert } from '../../redux/actions/alert.action';
 import { submitProduct } from '../../redux/actions/product.action';
 import PropTypes from 'prop-types';
@@ -18,7 +19,7 @@ const Form = ({ setAlert, submitProduct, submitting, history }) => {
         color: ''
     });
     
-    const { name, description, price, category, image, imagePreview, color } = productDetails;
+    const { name, description, price, category, imagePreview, color } = productDetails;
 
     const onChangeHandler = event => {
         setProductDetails({...productDetails, [event.target.name]: event.target.value });
@@ -37,27 +38,44 @@ const Form = ({ setAlert, submitProduct, submitting, history }) => {
         }
     }
 
-    const onSubmitHandler = event => {
-        event.preventDefault();
-        submitProduct(productDetails, history)
+    const onSubmit = data => {
+        submitProduct(productDetails, history);
     }
+
+    
+    const { register, handleSubmit, errors } = useForm();
 
     return (
         <div className="inner-container">
             <h2 className="heading">Digital Product</h2>
-            <form encType="multipart/form-data" onSubmit={onSubmitHandler}>
+            <form encType="multipart/form-data" onSubmit={handleSubmit(onSubmit)}>
                 <div className="product-image">
                     <img id="output" src={imagePreview} alt="product"/>
-                    <input id="image_input" className="mt-10" type='file' name='image' accept="image/jpeg, image/png" onChange={selectImageHandler}/>
+                    <input  ref={register({ required: true })} id="image_input" className="mt-10" type='file' name='image' accept="image/jpeg, image/png" onChange={selectImageHandler}/>
+                    <p className="error-paragraphs"><span>.</span>{errors.image && 'This is required'}</p>
                 </div>
                 <div className="product-details">
-                    <input className="mb-5" type="text" placeholder="Name" name="name" value={name} onChange={onChangeHandler}/>
-                    <textarea className="mb-5" name="description" rows="10" cols="20" value={description} onChange={onChangeHandler}>
+                    <label htmlFor="name">Name: </label>
+                    <input ref={register({ required: true, minLength: 2 })} className="" type="text" placeholder="" name="name" value={name} onChange={onChangeHandler}/>
+                    <p className="error-paragraphs"><span>.</span>{errors.name && 'This is required'}</p>
+
+                    <label htmlFor="description">Description: </label>
+                    <textarea ref={register({ required: true, minLength: 6 })} className="" name="description" rows="10" cols="20" value={description} onChange={onChangeHandler}>
                         Product description...
                     </textarea>
-                    <input className="mb-5" type="number" placeholder="Price" name="price" value={price} onChange={onChangeHandler}/>
-                    <select name="category" className="mb-5" value={category} onChange={onChangeHandler}>
-                        <option value="">Select Category</option>
+                    <p className="error-paragraphs"><span>.</span>
+                        {errors.description && errors.description.type === 'required' && 'This is required'}
+                        {errors.description && errors.description.type === 'minLength' && 'Six characters required.'}
+                    </p>
+
+                    <label htmlFor="price">Price: </label>
+                    <input ref={register({ required: true })} className="" type="number" placeholder="" name="price" value={price} onChange={onChangeHandler}/>
+                    <p className="error-paragraphs"><span>.</span>{errors.price && 'This is required'}</p>
+
+
+                    <label htmlFor="category">Category: </label>
+                    <select ref={register({ required: true })} name="category" className="" value={category} onChange={onChangeHandler}>
+                        <option value="">select...</option>
                         <option value="men-shirts">Men's Shirt</option>
                         <option value="women-shirt">Women's Shirts</option>
                         <option value="men-shoes">Men's Shoes</option>
@@ -65,8 +83,12 @@ const Form = ({ setAlert, submitProduct, submitting, history }) => {
                         <option value="hand-bags" defaultValue>Hand Bags</option>
                         <option value="necklace">Necklace</option>
                     </select>
-                    <select name="color" className="mb-5" value={color} onChange={onChangeHandler}>
-                        <option value="">Select Color</option>
+                    <p className="error-paragraphs"><span>.</span>{errors.category && 'This is required'}</p>
+
+
+                    <label htmlFor="color">Color: </label>
+                    <select ref={register({ required: true })} name="color" className="" value={color} onChange={onChangeHandler}>
+                        <option value="">select...</option>
                         <option value="red">Red</option>
                         <option value="blue" defaultValue>Blue</option>
                         <option value="green">Green</option>
@@ -74,8 +96,10 @@ const Form = ({ setAlert, submitProduct, submitting, history }) => {
                         <option value="yellow">Yellow</option>
                         <option value="pink">Pink</option>
                     </select>
-                    <input type="submit" value={ submitting ? "Sending..." : "Submit" }/>
-                    <Alert />
+                    <p className="error-paragraphs"><span>.</span>{errors.color && 'This is required'}</p>
+
+                    <input className="btn mt-5" type="submit" value={ submitting ? "Sending..." : "Submit" }/>
+                    <Alert/>
                 </div>
             </form>
         </div>

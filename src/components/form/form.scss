@@ -5,7 +5,8 @@ form {
     .product-image {
         width: 15rem;
         height: 15rem;
-        margin-right: 10px;
+        margin-right: 35px;
+        margin-top: 5px;
 
         img {
             width: 100%;
@@ -21,6 +22,21 @@ form {
         input {
             height: 40px;
         }
+        .btn {
+            border-radius: 10px; 
+            background: rgb(81, 99, 145);
+            border: none;   
+            opacity: 0.8;
+            transition: 0.3s;
+            color: white;
+            text-transform: uppercase;
+            font-size: 1.7rem;
+        }
+        .btn:active {
+            outline: none;
+        }
+
+        .btn:hover {opacity: 1}
     }
 }
 

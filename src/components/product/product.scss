@@ -1,5 +1,8 @@
 .product-container {
     display: flex;
+    background: rgb(81, 99, 145);
+    color: white;
+    padding: 20px;
     
 
     .image-container {
@@ -22,12 +25,19 @@
     .product-container {
         display: flex;
         flex-direction: column;
+        border: none;
+        width: 95%;
 
         .image-container,
         .product-info {
             margin-left: auto;
             margin-right: auto;
             margin-bottom: 2rem;
+        }
+
+        .image-container {
+            width: 17rem;
+            height: 17rem;
         }
     }
 } 
