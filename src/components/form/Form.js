@@ -66,21 +66,24 @@ const Form = ({ setAlert, submitProduct, submitting, history }) => {
                     </div>
                     <div className="product-details">
                         <label htmlFor="name">Name: </label>
-                        <input ref={register({ required: true, minLength: 2 })} className="pl-5" type="text" placeholder="" name="name" value={name} onChange={onChangeHandler}/>
+                        <input ref={register({ required: true, minLength: 2 })} className="pl-5" type="text" name="name" value={name} onChange={onChangeHandler}/>
                         <p className="error-paragraphs"><span>.</span>{errors.name && 'This is required'}</p>
 
                         <label htmlFor="description">Description: </label>
-                        <textarea ref={register({ required: true, minLength: 6 })} className="pl-5 pt-5" name="description" rows="5" cols="" value={description} onChange={onChangeHandler}>
+                        <textarea ref={register({ required: true, maxLength: 255 })} className="pl-5 pt-5" name="description" rows="5" cols="" value={description} onChange={onChangeHandler}>
                             Product description...
                         </textarea>
                         <p className="error-paragraphs"><span>.</span>
                             {errors.description && errors.description.type === 'required' && 'This is required'}
-                            {errors.description && errors.description.type === 'minLength' && 'Six characters required.'}
+                            {errors.description && errors.description.type === 'maxLength' && 'You can only type 255 characters at most'}
                         </p>
 
                         <label htmlFor="price">Price: </label>
-                        <input ref={register({ required: true })} className="" type="number" className="pl-5" name="price" value={price} onChange={onChangeHandler}/>
-                        <p className="error-paragraphs"><span>.</span>{errors.price && 'This is required'}</p>
+                        <input ref={register({ required: true, min: 0.1 })} className="pl-5" type="number" name="price" value={price} onChange={onChangeHandler}/>
+                        <p className="error-paragraphs"><span>.</span>
+                            {errors.price && errors.price.type === 'required' && 'This is required'}
+                            {errors.price && errors.price.type === 'min' && 'Price should be greater than 0'}
+                        </p>
 
 
                         <label htmlFor="category">Category: </label>
