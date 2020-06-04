@@ -9,7 +9,7 @@ const Product = ({ product, fetchProduct, fetching, match }) => {
 
     useEffect(() => {
         fetchProduct(match.params.id)
-    }, [fetchProduct, match]);
+    }, []);
 
     return product ? 
     (

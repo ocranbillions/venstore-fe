@@ -12,7 +12,7 @@ const ProductList = ({ products, fetchProductList, fetchProductsByCategory, fetc
 
     useEffect(() => {
         fetchProductList()
-    }, [fetchProductList]);
+    }, []);
 
     const [categoryState, setCategoryState] = useState({
         category: 'all',
